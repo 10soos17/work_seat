@@ -222,24 +222,23 @@ class ScreenMain(Screen):
     #    self.mainScreen.add_widget(self.scatter)
 
         self.emptyLabel = Label(size_hint=(0.14, 0.1),color=[0,0,0,0])
-        self.timeLabel = Label(font_size = '78sp',font_name="Roboto",
+        self.timeLabel = Label(font_size = '78sp',font_name="Times New Roman Bold",
                                 halign='center',valign="bottom",bold=False,italic=False,
                                 size_hint=(0.14, 0.15),pos_hint=(0.5,0.3),color=textColor)
         #self.scatter.add_widget(self.timeLabel)
         self.emptySecLabel = Label(size_hint=(0.14, 0.2),color=[0,0,0,0])
-        self.hereWeatherLabel = Label(font_size = '30sp',font_name="Roboto",
-                                    halign='justify',valign="bottom",bold=True,italic=True,
-                                    size_hint=(0.14, 0.15),color=textColor)
-        self.searchWeatherLabel = Label(font_size = '30sp',font_name="Roboto",
-                                    halign='justify',valign="center",bold=True,italic=True,
-                                    size_hint=(0.14, 0.15),color=textColor)
+
         self.mainScreen.add_widget(self.emptyLabel)
         self.mainScreen.add_widget(self.timeLabel)
         self.mainScreen.add_widget(self.emptySecLabel)
-        self.mainScreen.add_widget(self.hereWeatherLabel)
-        self.mainScreen.add_widget(self.searchWeatherLabel)
         #==============
         self.add_widget(self.mainScreen)
+        Clock.schedule_interval(self.timeAdd, 0.5)
+
+    def timeAdd(self,obj):
+        timeText=circle.current_time()
+        self.timeLabel.text = timeText
+        self.timeLabel.texture_update()
 
 class ScreenOne(Screen):
     def __init__(self, **kwargs):
