@@ -222,7 +222,7 @@ class ScreenMain(Screen):
     #    self.mainScreen.add_widget(self.scatter)
 
         self.emptyLabel = Label(size_hint=(0.14, 0.1),color=[0,0,0,0])
-        self.timeLabel = Label(font_size = '78sp',font_name="Times New Roman Bold",
+        self.timeLabel = Label(font_size = '78sp',
                                 halign='center',valign="bottom",bold=False,italic=False,
                                 size_hint=(0.14, 0.15),pos_hint=(0.5,0.3),color=textColor)
         #self.scatter.add_widget(self.timeLabel)
