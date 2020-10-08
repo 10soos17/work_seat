@@ -12,7 +12,7 @@ def current_time():
     first = 14 <= int(time.strftime("%H")) < 15 and 10 <= int(time.strftime("%M")) <= 40
     second = 15 <= int(time.strftime("%H")) < 16 and 5 <= int(time.strftime("%M")) <= 35
     third = 16 <= int(time.strftime("%H")) < 17 and 0 <= int(time.strftime("%M")) <= 30
-    fourth = (16 <= int(time.strftime("%H")) < 17 and 55 <= int(time.strftim("%M")) <= 59) or (17 <= int(time.strftime("%H")) < 18 and 0 <= int(time.strftime("%M")) <= 25) 
+    fourth = (16 <= int(time.strftime("%H")) < 17 and 55 <= int(time.strftime("%M")) <= 59) or (17 <= int(time.strftime("%H")) < 18 and 0 <= int(time.strftime("%M")) <= 25) 
     middle = (18 <= int(time.strftime("%H")) < 19 and 30 <= int(time.strftime("%M")) <= 59) or (19 <= int(time.strftime("%H")) < 20 and 0 <= int(time.strftime("%M")) <= 15)
     if first:
         return str(f"1 class\n{currentdate}\n{localtime}")
