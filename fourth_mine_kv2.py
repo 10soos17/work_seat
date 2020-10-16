@@ -17,34 +17,34 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.stacklayout import StackLayout
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.popup import Popup
-from kivy.uix.scatter import Scatter
 from kivy.graphics import *
 from kivy.clock import Clock
 from kivy.properties import ObjectProperty
-from kivy.uix.progressbar import ProgressBar
-from kivy.uix.slider import Slider
-import urllib.request
-import threading
 import os
-import sys
 import time
-import random
-import threading
-from multiprocessing import Process, Queue
-from multiprocessing.pool import ThreadPool
+#from kivy.uix.progressbar import ProgressBar
+#from kivy.uix.scatter import Scatter
+#from kivy.uix.slider import Slider
+#import urllib.request
+#import threading
+#import sys
+#import random
+#import threading
+#from multiprocessing import Process, Queue
+#from multiprocessing.pool import ThreadPool
 #import multiprocessing
 #from queue import Queue
-import subprocess
-import signal
+#import subprocess
+#import signal
 
 import fourth_seat as fs
 import fourth_circle as circle
 
 #kivy.require("1.19.1")
 
-winColor = [0, 0, 0, 1]
-boxColor = [1, 1.1, 1.3, 1]
-textColor = [1, 1, 1, 1]
+winColor = [211/255,211/255,211/255,1]#[189/255,183/255,110/255,1]#[211/255, 211/255, 211/255, 1]
+boxColor = [105/255,105/255,105/255,1]#[110/255,0/255,0/255,1]#[188/255, 143/255, 143/255, 1]
+textColor = [255/255,255/255,255/255,1]#[255/255,255/255,255/255,1]#[255/255, 255/255, 255/255, 1]
 
 class Root(BoxLayout):
     def __init__(self, **kwargs):
@@ -78,13 +78,13 @@ class UpperMenu(StackLayout):
         self.stackLayout.add_widget(self.img_btn)
 
         for i in range(len(btnText)):
-            btn = Button(text=btnText[i], width=40, height=30, size_hint=(0.14, 0.9), background_color=boxColor,color=textColor)
+            btn = Button(text=btnText[i], width=40, height=30, size_hint=(0.14, 0.9), background_normal = "",background_color = boxColor, color=textColor)
             btnDic[btnText[i]]=btn
             if btnText[i] == "Main":
                 btn.bind(on_press=self.ready_widget,on_release=toMain.show_screen_main)
             if btnText[i] == "Seat":
                 for j in range(len(seatBtnText)):
-                    seatDropBtn = Button(text=seatBtnText[j], height=40, size_hint_y=None, background_color=boxColor,color=textColor)
+                    seatDropBtn = Button(text=seatBtnText[j], height=40, size_hint_y=None, background_normal = "", background_color=boxColor,color=textColor)
                     seatBtnDic[seatBtnText[j]] = seatDropBtn
                     seatDropBtn.bind(on_release=lambda instance: self.seatDrop.select(seatDropBtn.text))
                     self.seatDrop.add_widget(seatDropBtn)
@@ -142,11 +142,11 @@ class UpperMenu(StackLayout):
         self.name = TextInput(multiline = False,width=40, height=30,size_hint=(0.5, 0.16))
         self.lowerContent.add_widget(self.name)
 
-        self.seatSubmit = Button(text="Submit",width=40, height=30,size_hint=(0.5, 0.16),background_color=boxColor,color=textColor)
+        self.seatSubmit = Button(text="Submit",width=40, height=30,size_hint=(0.5, 0.16),background_normal='',background_color=boxColor,color=textColor)
         self.seatSubmit.bind(on_press = self.seat_pressed) #bind 콜벡함수연결함수
         self.lowerContent.add_widget(self.seatSubmit)
 
-        self.seatDelete = Button(text="Delete",width=40, height=30,size_hint=(0.5, 0.16),background_color=boxColor,color=textColor)
+        self.seatDelete = Button(text="Delete",width=40, height=30,size_hint=(0.5, 0.16),background_normal='',background_color=boxColor,color=textColor)
         self.seatDelete.bind(on_press = self.delete_pressed) #bind 콜벡함수연결함수
         self.lowerContent.add_widget(self.seatDelete)
 
@@ -259,7 +259,7 @@ class ScreenOne(Screen):
                 #font_name="Times New Roman","Verdana"
                 self.class1_btn = Button(text=str(beforeNum[i]),font_size=18,font_name="Arial",bold=True,
                                     size_hint=(0.1, 0.08),halign="justify",valign="middle",
-                                    background_color=boxColor,color=textColor)
+                                    background_normal='',background_color=boxColor,color=textColor)
                 class1_btnDic[str(beforeNum[i])]=self.class1_btn
                 if beforeNum[i] != "x":
                     class1_btnDic[str(beforeNum[i])].bind(on_press = self.seatBtn_pop)
@@ -292,16 +292,16 @@ class ScreenOne(Screen):
         self.textLine=Label(text = 'Choose.',width=40, height=30,size_hint=(1, 0.2),color=textColor)
         self.seatBtn_layout.add_widget(self.textLine)
 
-        self.save_submit = Button(text="1. Save",width=40, height=30,size_hint=(1, 0.2),background_color=boxColor,color=textColor)
+        self.save_submit = Button(text="1. Save",width=40, height=30,size_hint=(1, 0.2),background_normal='',background_color=boxColor,color=textColor)
         #self.save_submit.bind(on_press=lambda x: self.seatBtn_save_popup(seatNum)) #bind 콜벡함수연결함수
         self.save_submit.bind(on_press=self.seatBtn_save_pop)
         self.seatBtn_layout.add_widget(self.save_submit)
 
-        self.delete_submit = Button(text="2. Delete",width=40, height=30,size_hint=(1, 0.2),background_color=boxColor,color=textColor)
+        self.delete_submit = Button(text="2. Delete",width=40, height=30,size_hint=(1, 0.2),background_normal='',background_color=boxColor,color=textColor)
         self.delete_submit.bind(on_press = self.seatBtn_delete) #bind 콜벡함수연결함수
         self.seatBtn_layout.add_widget(self.delete_submit)
 
-        self.close_submit = Button(text="3. Close",width=40, height=30,size_hint=(1, 0.2),background_color=boxColor,color=textColor)
+        self.close_submit = Button(text="3. Close",width=40, height=30,size_hint=(1, 0.2),background_normal='',background_color=boxColor,color=textColor)
         self.close_submit.bind(on_press = self.seatBtnPopup.dismiss) #bind 콜벡함수연결함수
         self.seatBtn_layout.add_widget(self.close_submit)
 
@@ -323,11 +323,11 @@ class ScreenOne(Screen):
         self.seatBtn_save_name = TextInput(multiline = False,size_hint=(0.7, 0.5))
         self.seatBtn_save_layout.add_widget(self.seatBtn_save_name)
 
-        self.save_name_submit = Button(text="Submit",size_hint=(0.5, 0.5),background_color=boxColor,color=textColor)
+        self.save_name_submit = Button(text="Submit",size_hint=(0.5, 0.5),background_normal='',background_color=boxColor,color=textColor)
         self.save_name_submit.bind(on_press = self.seatBtn_save) #bind 콜벡함수연결함수
         self.seatBtn_save_layout.add_widget(self.save_name_submit)
 
-        self.save_close_submit = Button(text="Close",size_hint=(0.5, 0.5),background_color=boxColor,color=textColor)
+        self.save_close_submit = Button(text="Close",size_hint=(0.5, 0.5),background_normal='',background_color=boxColor,color=textColor)
         self.save_close_submit.bind(on_press = self.seatBtn_save_popup.dismiss) #bind 콜벡함수연결함수
         self.seatBtn_save_layout.add_widget(self.save_close_submit)
 
@@ -399,7 +399,7 @@ class ScreenTwo(Screen): #grid
                 #font_name="Times New Roman","Verdana"
                 self.class2_btn = Button(text=str(beforeNum[i]),font_size=18,font_name="Arial",bold=True,
                                     size_hint=(0.1, 0.08),halign="justify",valign="middle",
-                                    background_color=boxColor,color=textColor)
+                                    background_normal='',background_color=boxColor,color=textColor)
                 class2_btnDic[str(beforeNum[i])]=self.class2_btn
                 if beforeNum[i] != "x":
                     class2_btnDic[str(beforeNum[i])].bind(on_press = self.seatBtn_pop)
@@ -432,16 +432,16 @@ class ScreenTwo(Screen): #grid
         self.textLine=Label(text = 'Choose.',width=40, height=30,size_hint=(1, 0.2),color=textColor)
         self.seatBtn_layout.add_widget(self.textLine)
 
-        self.save_submit = Button(text="1. Save",width=40, height=30,size_hint=(1, 0.2),background_color=boxColor,color=textColor)
+        self.save_submit = Button(text="1. Save",width=40, height=30,size_hint=(1, 0.2),background_normal='',background_color=boxColor,color=textColor)
         #self.save_submit.bind(on_press=lambda x: self.seatBtn_save_popup(seatNum)) #bind 콜벡함수연결함수
         self.save_submit.bind(on_press=self.seatBtn_save_pop)
         self.seatBtn_layout.add_widget(self.save_submit)
 
-        self.delete_submit = Button(text="2. Delete",width=40, height=30,size_hint=(1, 0.2),background_color=boxColor,color=textColor)
+        self.delete_submit = Button(text="2. Delete",width=40, height=30,size_hint=(1, 0.2),background_normal='',background_color=boxColor,color=textColor)
         self.delete_submit.bind(on_press = self.seatBtn_delete) #bind 콜벡함수연결함수
         self.seatBtn_layout.add_widget(self.delete_submit)
 
-        self.close_submit = Button(text="3. Close",width=40, height=30,size_hint=(1, 0.2),background_color=boxColor,color=textColor)
+        self.close_submit = Button(text="3. Close",width=40, height=30,size_hint=(1, 0.2),background_normal='',background_color=boxColor,color=textColor)
         self.close_submit.bind(on_press = self.seatBtnPopup.dismiss) #bind 콜벡함수연결함수
         self.seatBtn_layout.add_widget(self.close_submit)
 
@@ -463,11 +463,11 @@ class ScreenTwo(Screen): #grid
         self.seatBtn_save_name = TextInput(multiline = False,size_hint=(0.7, 0.5))
         self.seatBtn_save_layout.add_widget(self.seatBtn_save_name)
 
-        self.save_name_submit = Button(text="Submit",size_hint=(0.5, 0.5),background_color=boxColor,color=textColor)
+        self.save_name_submit = Button(text="Submit",size_hint=(0.5, 0.5),background_normal='',background_color=boxColor,color=textColor)
         self.save_name_submit.bind(on_press = self.seatBtn_save) #bind 콜벡함수연결함수
         self.seatBtn_save_layout.add_widget(self.save_name_submit)
 
-        self.save_close_submit = Button(text="Close",size_hint=(0.5, 0.5),background_color=boxColor,color=textColor)
+        self.save_close_submit = Button(text="Close",size_hint=(0.5, 0.5),background_normal='',background_color=boxColor,color=textColor)
         self.save_close_submit.bind(on_press = self.seatBtn_save_popup.dismiss) #bind 콜벡함수연결함수
         self.seatBtn_save_layout.add_widget(self.save_close_submit)
 
@@ -529,7 +529,7 @@ class ScreenThree(Screen):
         class3_btnDic={}
         btnCount=0
         beforeNum = {3:1,4:2,5:3,6:4,7:5,8:6,9:7,
-                10:8,11:9,12:"x",24:10,36:11,48:12,60:"13\ndisorder",
+                10:8,11:9,12:"x",24:10,36:11,48:12,60:13,
                 72:"x",71:14,70:15,69:16,68:17,67:18,66:19,65:20,64:21,63:22,62:23,61:24}
         for i in range(1,73):
             if 3 <= i <= 12 or 61 <= i <= 72 or i in [24,36,48,60]:
@@ -537,7 +537,7 @@ class ScreenThree(Screen):
                 #font_name="Times New Roman","Verdana"
                 self.class3_btn = Button(text=str(beforeNum[i]),font_size=18,font_name="Arial",bold=True,
                                     size_hint=(0.1, 0.08),halign="justify",valign="middle",
-                                    background_color=boxColor,color=textColor)
+                                    background_normal='',background_color=boxColor,color=textColor)
                 class3_btnDic[str(beforeNum[i])]=self.class3_btn
                 if beforeNum[i] != "x":
                     class3_btnDic[str(beforeNum[i])].bind(on_press = self.seatBtn_pop)
@@ -570,16 +570,16 @@ class ScreenThree(Screen):
         self.textLine=Label(text = 'Choose.',width=40, height=30,size_hint=(1, 0.2),color=textColor)
         self.seatBtn_layout.add_widget(self.textLine)
 
-        self.save_submit = Button(text="1. Save",width=40, height=30,size_hint=(1, 0.2),background_color=boxColor,color=textColor)
+        self.save_submit = Button(text="1. Save",width=40, height=30,size_hint=(1, 0.2),background_normal='',background_color=boxColor,color=textColor)
         #self.save_submit.bind(on_press=lambda x: self.seatBtn_save_popup(seatNum)) #bind 콜벡함수연결함수
         self.save_submit.bind(on_press=self.seatBtn_save_pop)
         self.seatBtn_layout.add_widget(self.save_submit)
 
-        self.delete_submit = Button(text="2. Delete",width=40, height=30,size_hint=(1, 0.2),background_color=boxColor,color=textColor)
+        self.delete_submit = Button(text="2. Delete",width=40, height=30,size_hint=(1, 0.2),background_normal='',background_color=boxColor,color=textColor)
         self.delete_submit.bind(on_press = self.seatBtn_delete) #bind 콜벡함수연결함수
         self.seatBtn_layout.add_widget(self.delete_submit)
 
-        self.close_submit = Button(text="3. Close",width=40, height=30,size_hint=(1, 0.2),background_color=boxColor,color=textColor)
+        self.close_submit = Button(text="3. Close",width=40, height=30,size_hint=(1, 0.2),background_normal='',background_color=boxColor,color=textColor)
         self.close_submit.bind(on_press = self.seatBtnPopup.dismiss) #bind 콜벡함수연결함수
         self.seatBtn_layout.add_widget(self.close_submit)
 
@@ -601,11 +601,11 @@ class ScreenThree(Screen):
         self.seatBtn_save_name = TextInput(multiline = False,size_hint=(0.7, 0.5))
         self.seatBtn_save_layout.add_widget(self.seatBtn_save_name)
 
-        self.save_name_submit = Button(text="Submit",size_hint=(0.5, 0.5),background_color=boxColor,color=textColor)
+        self.save_name_submit = Button(text="Submit",size_hint=(0.5, 0.5),background_normal='',background_color=boxColor,color=textColor)
         self.save_name_submit.bind(on_press = self.seatBtn_save) #bind 콜벡함수연결함수
         self.seatBtn_save_layout.add_widget(self.save_name_submit)
 
-        self.save_close_submit = Button(text="Close",size_hint=(0.5, 0.5),background_color=boxColor,color=textColor)
+        self.save_close_submit = Button(text="Close",size_hint=(0.5, 0.5),background_normal='',background_color=boxColor,color=textColor)
         self.save_close_submit.bind(on_press = self.seatBtn_save_popup.dismiss) #bind 콜벡함수연결함수
         self.seatBtn_save_layout.add_widget(self.save_close_submit)
 
@@ -674,7 +674,7 @@ class ScreenFour(Screen):
                 #font_name="Times New Roman","Verdana"
                 self.class4_btn = Button(text=str(beforeNum[i]),font_size=18,font_name="Arial",bold=True,
                                     size_hint=(0.1, 0.08),halign="justify",valign="middle",
-                                    background_color=boxColor,color=textColor)
+                                    background_normal='',background_color=boxColor,color=textColor)
                 class4_btnDic[str(beforeNum[i])]=self.class4_btn
                 if beforeNum[i] != "x":
                     class4_btnDic[str(beforeNum[i])].bind(on_press = self.seatBtn_pop)
@@ -707,16 +707,16 @@ class ScreenFour(Screen):
         self.textLine=Label(text = 'Choose.',width=40, height=30,size_hint=(1, 0.2),color=textColor)
         self.seatBtn_layout.add_widget(self.textLine)
 
-        self.save_submit = Button(text="1. Save",width=40, height=30,size_hint=(1, 0.2),background_color=boxColor,color=textColor)
+        self.save_submit = Button(text="1. Save",width=40, height=30,size_hint=(1, 0.2),background_normal='',background_color=boxColor,color=textColor)
         #self.save_submit.bind(on_press=lambda x: self.seatBtn_save_popup(seatNum)) #bind 콜벡함수연결함수
         self.save_submit.bind(on_press=self.seatBtn_save_pop)
         self.seatBtn_layout.add_widget(self.save_submit)
 
-        self.delete_submit = Button(text="2. Delete",width=40, height=30,size_hint=(1, 0.2),background_color=boxColor,color=textColor)
+        self.delete_submit = Button(text="2. Delete",width=40, height=30,size_hint=(1, 0.2),background_normal='',background_color=boxColor,color=textColor)
         self.delete_submit.bind(on_press = self.seatBtn_delete) #bind 콜벡함수연결함수
         self.seatBtn_layout.add_widget(self.delete_submit)
 
-        self.close_submit = Button(text="3. Close",width=40, height=30,size_hint=(1, 0.2),background_color=boxColor,color=textColor)
+        self.close_submit = Button(text="3. Close",width=40, height=30,size_hint=(1, 0.2),background_normal='',background_color=boxColor,color=textColor)
         self.close_submit.bind(on_press = self.seatBtnPopup.dismiss) #bind 콜벡함수연결함수
         self.seatBtn_layout.add_widget(self.close_submit)
 
@@ -738,11 +738,11 @@ class ScreenFour(Screen):
         self.seatBtn_save_name = TextInput(multiline = False,size_hint=(0.7, 0.5))
         self.seatBtn_save_layout.add_widget(self.seatBtn_save_name)
 
-        self.save_name_submit = Button(text="Submit",size_hint=(0.5, 0.5),background_color=boxColor,color=textColor)
+        self.save_name_submit = Button(text="Submit",size_hint=(0.5, 0.5),background_normal='',background_color=boxColor,color=textColor)
         self.save_name_submit.bind(on_press = self.seatBtn_save) #bind 콜벡함수연결함수
         self.seatBtn_save_layout.add_widget(self.save_name_submit)
 
-        self.save_close_submit = Button(text="Close",size_hint=(0.5, 0.5),background_color=boxColor,color=textColor)
+        self.save_close_submit = Button(text="Close",size_hint=(0.5, 0.5),background_normal='',background_color=boxColor,color=textColor)
         self.save_close_submit.bind(on_press = self.seatBtn_save_popup.dismiss) #bind 콜벡함수연결함수
         self.seatBtn_save_layout.add_widget(self.save_close_submit)
 
@@ -811,7 +811,7 @@ class ScreenFive(Screen):
                 #font_name="Times New Roman","Verdana"
                 self.class5_btn = Button(text=str(beforeNum[i]),font_size=18,font_name="Arial",bold=True,
                                     size_hint=(0.1, 0.08),halign="justify",valign="middle",
-                                    background_color=boxColor,color=textColor)
+                                    background_normal='',background_color=boxColor,color=textColor)
                 class5_btnDic[str(beforeNum[i])]=self.class5_btn
                 if beforeNum[i] != "x":
                     class5_btnDic[str(beforeNum[i])].bind(on_press = self.seatBtn_pop)
@@ -844,16 +844,16 @@ class ScreenFive(Screen):
         self.textLine=Label(text = 'Choose.',width=40, height=30,size_hint=(1, 0.2),color=textColor)
         self.seatBtn_layout.add_widget(self.textLine)
 
-        self.save_submit = Button(text="1. Save",width=40, height=30,size_hint=(1, 0.2),background_color=boxColor,color=textColor)
+        self.save_submit = Button(text="1. Save",width=40, height=30,size_hint=(1, 0.2),background_normal='',background_color=boxColor,color=textColor)
         #self.save_submit.bind(on_press=lambda x: self.seatBtn_save_popup(seatNum)) #bind 콜벡함수연결함수
         self.save_submit.bind(on_press=self.seatBtn_save_pop)
         self.seatBtn_layout.add_widget(self.save_submit)
 
-        self.delete_submit = Button(text="2. Delete",width=40, height=30,size_hint=(1, 0.2),background_color=boxColor,color=textColor)
+        self.delete_submit = Button(text="2. Delete",width=40, height=30,size_hint=(1, 0.2),background_normal='',background_color=boxColor,color=textColor)
         self.delete_submit.bind(on_press = self.seatBtn_delete) #bind 콜벡함수연결함수
         self.seatBtn_layout.add_widget(self.delete_submit)
 
-        self.close_submit = Button(text="3. Close",width=40, height=30,size_hint=(1, 0.2),background_color=boxColor,color=textColor)
+        self.close_submit = Button(text="3. Close",width=40, height=30,size_hint=(1, 0.2),background_normal='',background_color=boxColor,color=textColor)
         self.close_submit.bind(on_press = self.seatBtnPopup.dismiss) #bind 콜벡함수연결함수
         self.seatBtn_layout.add_widget(self.close_submit)
 
@@ -875,11 +875,11 @@ class ScreenFive(Screen):
         self.seatBtn_save_name = TextInput(multiline = False,size_hint=(0.7, 0.5))
         self.seatBtn_save_layout.add_widget(self.seatBtn_save_name)
 
-        self.save_name_submit = Button(text="Submit",size_hint=(0.5, 0.5),background_color=boxColor,color=textColor)
+        self.save_name_submit = Button(text="Submit",size_hint=(0.5, 0.5),background_normal='',background_color=boxColor,color=textColor)
         self.save_name_submit.bind(on_press = self.seatBtn_save) #bind 콜벡함수연결함수
         self.seatBtn_save_layout.add_widget(self.save_name_submit)
 
-        self.save_close_submit = Button(text="Close",size_hint=(0.5, 0.5),background_color=boxColor,color=textColor)
+        self.save_close_submit = Button(text="Close",size_hint=(0.5, 0.5),background_normal='',background_color=boxColor,color=textColor)
         self.save_close_submit.bind(on_press = self.seatBtn_save_popup.dismiss) #bind 콜벡함수연결함수
         self.seatBtn_save_layout.add_widget(self.save_close_submit)
 
@@ -960,7 +960,7 @@ class Fourth_mine_kv2(App):
     global manager
     proc = os.getpid()
     print("Fourth_mine_kv2: ",proc)
-   # Window.clearcolor = winColor
+    Window.clearcolor = winColor
     #manager = Manager(transition=WipeTransition())
     manager = Manager()
     def build(self):
