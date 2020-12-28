@@ -1,10 +1,6 @@
 #!/usr/bin/python3
 import cgi, os
 import time
-<<<<<<< HEAD
-import threading
-=======
->>>>>>> 59fe7905be1f5e6cc928c6912bc794f737069be3
 
 def current_time():
     currentdate =  time.strftime("%Y / %m / %d")
