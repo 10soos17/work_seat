@@ -1,4 +1,4 @@
-# APP_work_seat
+# APP_Work_seating system
 
 - Written by Soo Shin
 - email: shinsh1017@gmail.com
