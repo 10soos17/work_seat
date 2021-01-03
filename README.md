@@ -3,7 +3,7 @@
 - Written by Soo Shin
 - email: shinsh1017@gmail.com
 
-## Object
+## Motivation
 
 > I made it to allocate student seats in the computer lab. 
 > The motive for making this was to make my work easier. 
