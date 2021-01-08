@@ -28,4 +28,4 @@
   
 ## Video
 
-* [Start the app](https://youtu.be/XjhmiCzlQ3Q)
+* [Video](https://youtu.be/XjhmiCzlQ3Q)
